@@ -1,15 +1,15 @@
 import {
-  DatastarDatalineElements,
-  DatastarDatalinePatchMode,
-  DatastarDatalineOnlyIfMissing,
   DatastarDatalineSelector,
-  DatastarDatalineSignals,
+  DatastarDatalinePatchMode,
+  DatastarDatalineElements,
   DatastarDatalineUseViewTransition,
+  DatastarDatalineSignals,
+  DatastarDatalineOnlyIfMissing,
   DefaultElementPatchMode,
   DefaultElementsUseViewTransitions,
   DefaultPatchSignalsOnlyIfMissing,
-  EventTypes,
   ElementPatchModes,
+  EventTypes,
 } from "./consts.ts";
 
 // Simple Jsonifiable type definition to replace npm:type-fest dependency
@@ -42,8 +42,8 @@ export interface ElementOptions extends DatastarEventOptions {
 }
 
 export interface PatchElementsOptions extends ElementOptions {
-  [DatastarDatalinePatchMode]?: ElementPatchMode;
   [DatastarDatalineSelector]?: string;
+  [DatastarDatalinePatchMode]?: ElementPatchMode;
 }
 
 export interface patchElementsEvent {
@@ -52,14 +52,14 @@ export interface patchElementsEvent {
   [DatastarDatalineElements]: string;
 }
 
-export interface PatchSignalsOptions extends DatastarEventOptions {
-  [DatastarDatalineOnlyIfMissing]?: boolean;
-}
-
 export interface patchSignalsEvent {
   event: "datastar-patch-signals";
   options: PatchSignalsOptions;
   [DatastarDatalineSignals]: Record<string, Jsonifiable>;
+}
+
+export interface PatchSignalsOptions extends DatastarEventOptions {
+  [DatastarDatalineOnlyIfMissing]?: boolean;
 }
 
 export const sseHeaders = {
@@ -87,3 +87,4 @@ export const DefaultMapping = {
   [DatastarDatalineUseViewTransition]: DefaultElementsUseViewTransitions,
   [DatastarDatalineOnlyIfMissing]: DefaultPatchSignalsOnlyIfMissing,
 } as const;
+

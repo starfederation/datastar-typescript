@@ -32,7 +32,6 @@ export const DatastarDatalineElements = "elements"
 export const DatastarDatalineUseViewTransition = "useViewTransition"
 export const DatastarDatalineSignals = "signals"
 export const DatastarDatalineOnlyIfMissing = "onlyIfMissing"
-export const DatastarDatalinePaths = "paths"
 // #endregion
 
 
@@ -40,24 +39,23 @@ export const DatastarDatalinePaths = "paths"
 
 // The mode in which an element is patched into the DOM.
 export const ElementPatchModes = [
-// Morph entire element, preserving state
+// Morphs the element into the existing element.
     "outer",
-// Morph inner HTML only, preserving state
+// Replaces the inner HTML of the existing element.
     "inner",
-// Replace entire element, reset state
-    "replace",
-// Insert at beginning inside target
-    "prepend",
-// Insert at end inside target
-    "append",
-// Insert before target element
-    "before",
-// Insert after target element
-    "after",
-// Remove target element from DOM
+// Removes the existing element.
     "remove",
+// Replaces the existing element with the new element.
+    "replace",
+// Prepends the element inside to the existing element.
+    "prepend",
+// Appends the element inside the existing element.
+    "append",
+// Inserts the element before the existing element.
+    "before",
+// Inserts the element after the existing element.
+    "after",
 ] as const;
-
 // Default value for ElementPatchMode
 export const DefaultElementPatchMode = "outer";
 

@@ -3,7 +3,8 @@
   "version": "1.0.0-RC.1",
   "description": "TypeScript SDK for Datastar",
   "scripts": {
-    "build": "deno run -A build.ts",
+    "generate": "deno run -A scripts/generate-code.ts",
+    "build": "npm run generate && deno run -A build.ts",
     "test": "bash ./test/run-all.sh"
   },
   "type": "module",
