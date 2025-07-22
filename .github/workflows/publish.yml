@@ -42,7 +42,7 @@ jobs:
       - name: Publish to npm
         working-directory: ./npm
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
         run: |
           # Check if this version is already published
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
