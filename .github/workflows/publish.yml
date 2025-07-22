@@ -1,0 +1,68 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (optional, defaults to package.json version)'
+        required: false
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: 'latest'
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Build package
+        run: |
+          if [[ -n "${{ github.event.inputs.version }}" ]]; then
+            deno run -A build.ts "${{ github.event.inputs.version }}"
+          else
+            deno run -A build.ts
+          fi
+
+      - name: Run tests
+        run: bash test/run-all.sh
+
+      - name: Publish to npm
+        working-directory: ./npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          # Check if this version is already published
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          
+          if npm view "$PACKAGE_NAME@$PACKAGE_VERSION" version 2>/dev/null; then
+            echo "Version $PACKAGE_VERSION already exists on npm. Skipping publish."
+            exit 0
+          fi
+          
+          echo "Publishing $PACKAGE_NAME@$PACKAGE_VERSION to npm..."
+          npm publish --access public
+
+      - name: Create GitHub release (if triggered by workflow_dispatch)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          gh release create "v$VERSION" \
+            --title "Release v$VERSION" \
+            --notes "Release v$VERSION" \
+            --latest 
