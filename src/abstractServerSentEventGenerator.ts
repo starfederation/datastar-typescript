@@ -24,7 +24,7 @@ import {
  * The concrete implementation must override the send and constructor methods as well
  * as implement readSignals and stream static methods.
  */
-export abstract class ServerSentEventGenerator {
+export abstract class ServerSentEventGenerator<T = string[]> {
   protected constructor() {}
 
   /**
@@ -66,7 +66,7 @@ export abstract class ServerSentEventGenerator {
     event: EventType,
     dataLines: string[],
     options: DatastarEventOptions,
-  ): string[] {
+  ): T | string[] {
     const { eventId, retryDuration } = options || {};
 
     const typeLine = [`event: ${event}\n`];
