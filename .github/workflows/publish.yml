@@ -61,7 +61,7 @@ jobs:
           fi
           
           echo "Publishing $PACKAGE_NAME@$PACKAGE_VERSION to npm..."
-          npm publish --access public
+          npm publish --access public --tag latest
 
       - name: Create GitHub release (if triggered by workflow_dispatch)
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.version

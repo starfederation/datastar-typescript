@@ -1,6 +1,6 @@
 {
   "name": "@starfederation/datastar-sdk",
-  "version": "1.0.0-RC.2",
+  "version": "1.0.0-RC.3",
   "description": "TypeScript SDK for Datastar",
   "scripts": {
     "build": "deno run -A build.ts",
