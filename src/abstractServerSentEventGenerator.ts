@@ -85,6 +85,16 @@ export abstract class ServerSentEventGenerator<T = string[]> {
     );
   }
 
+  /**
+   * Closes the server-sent event stream.
+   *
+   * Use this method to manually close the stream when `keepalive: true` is set.
+   * This is required when you want to close the stream before the client disconnects.
+   *
+   * Concrete implementations must override this method to close the underlying stream.
+   */
+  public abstract close(): void;
+
   private eachNewlineIsADataLine(prefix: string, data: string) {
     return data.split("\n").map((line) => {
       return `${prefix} ${line}`;

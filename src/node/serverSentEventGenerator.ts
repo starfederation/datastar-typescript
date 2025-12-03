@@ -95,6 +95,15 @@ export class ServerSentEventGenerator extends AbstractSSEGenerator {
   }
 
   /**
+   * Closes the server-sent event stream.
+   *
+   * Ends the Node.js response stream.
+   */
+  public override close(): void {
+    this.res.end();
+  }
+
+  /**
    * Reads client sent signals based on HTTP methods
    *
    * @params request - The NodeJS Request object.
