@@ -3,7 +3,7 @@
 
 # Datastar TypeScript SDK 
 
-[![Version](https://img.shields.io/badge/version-1.0.0–RC.3-orange)](https://github.com/starfederation/datastar/releases) ![Static Badge](https://img.shields.io/badge/run_time-node_js-2a682d?logo=nodedotjs&labelColor=black) ![Static Badge](https://img.shields.io/badge/run_time-deno-6affaf?logo=deno&labelColor=black) ![Static Badge](https://img.shields.io/badge/run_time-bun-f672b6?logo=bun&labelColor=black)
+[![Version](https://img.shields.io/badge/version-1.0.0–RC.3-orange)](https://github.com/starfederation/datastar-typescript/releases) ![Static Badge](https://img.shields.io/badge/run_time-node_js-2a682d?logo=nodedotjs&labelColor=black) ![Static Badge](https://img.shields.io/badge/run_time-deno-6affaf?logo=deno&labelColor=black) ![Static Badge](https://img.shields.io/badge/run_time-bun-f672b6?logo=bun&labelColor=black)
 
 A TypeScript SDK for building reactive web applications with [Datastar](https://github.com/starfederation/datastar).
 
