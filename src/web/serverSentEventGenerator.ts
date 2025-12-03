@@ -104,6 +104,31 @@ export class ServerSentEventGenerator extends AbstractSSEGenerator {
   }
 
   /**
+   * Closes the server-sent event stream.
+   *
+   * Closes the ReadableStream controller.
+   */
+  public override close(): void {
+    if (!this.controller) {
+      return;
+    }
+
+    try {
+      this.controller.close();
+    } catch (err) {
+      // ReadableStream controllers throw when already closed.
+      // We only ignore TypeError (which indicates the stream is already closed).
+      // Other errors should bubble up as they indicate real problems.
+      if (err instanceof TypeError) {
+        // Stream is already closed, which is fine - ignore
+        return;
+      }
+      // Re-throw unexpected errors
+      throw err;
+    }
+  }
+
+  /**
    * Reads client sent signals based on HTTP methods
    *
    * @params request - The HTTP Request object.
