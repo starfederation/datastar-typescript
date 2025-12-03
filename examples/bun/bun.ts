@@ -5,7 +5,7 @@ const server = Bun.serve({
   routes: {
     "/": () => {
       return new Response(
-        `<html><head><script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@main/bundles/datastar.js"></script></head><body><div id="toMerge" data-signals-foo="'World'" data-on-load="@get('/merge')">Hello</div></body></html>`,
+        `<html><head><script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0-RC.6/bundles/datastar.js"></script></head><body><div id="toMerge" data-signals:foo="'World'" data-init="@get('/merge')">Hello</div></body></html>`,
         {
           headers: { "Content-Type": "text/html" },
         },

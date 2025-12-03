@@ -10,7 +10,7 @@ const server = createServer(async (req, res) => {
   if (req.url === "/") {
     res.setHeader("Content-Type", "text/html");
     res.end(
-      `<html><head><script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@main/bundles/datastar.js"></script></head><body><div id="toMerge" data-signals-foo="'World'" data-on-load="@get('/merge')">Hello</div></body></html>`,
+      `<html><head><script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0-RC.6/bundles/datastar.js"></script></head><body><div id="toMerge" data-signals:foo="'World'" data-init="@get('/merge')">Hello</div></body></html>`,
     );
   } else if (req.url?.includes("/merge")) {
     const reader = await ServerSentEventGenerator.readSignals(req);
