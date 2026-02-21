@@ -4,25 +4,28 @@ import {
   DatastarDatalineOnlyIfMissing,
   DatastarDatalineSelector,
   DatastarDatalineSignals,
+  DatastarDatalineNamespace,
   DatastarDatalineUseViewTransition,
   DefaultElementPatchMode,
   DefaultElementsUseViewTransitions,
   DefaultPatchSignalsOnlyIfMissing,
   EventTypes,
   ElementPatchModes,
+  NamespaceTypes,
 } from "./consts.ts";
 
 // Simple Jsonifiable type definition to replace npm:type-fest dependency
-export type Jsonifiable = 
-  | string 
-  | number 
-  | boolean 
-  | null 
+export type Jsonifiable =
+  | string
+  | number
+  | boolean
+  | null
   | undefined
-  | Jsonifiable[] 
+  | Jsonifiable[]
   | { [key: string]: Jsonifiable };
 
 export type ElementPatchMode = typeof ElementPatchModes[number];
+export type NamespaceType = typeof NamespaceTypes[number];
 export type EventType = typeof EventTypes[number];
 
 export type StreamOptions = Partial<{
@@ -44,6 +47,7 @@ export interface ElementOptions extends DatastarEventOptions {
 export interface PatchElementsOptions extends ElementOptions {
   [DatastarDatalinePatchMode]?: ElementPatchMode;
   [DatastarDatalineSelector]?: string;
+  [DatastarDatalineNamespace]?: NamespaceType;
 }
 
 export interface patchElementsEvent {
