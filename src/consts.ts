@@ -41,8 +41,8 @@ export const ElementPatchModes = [
 
 export const NamespaceTypes = [
     "svg",
-    "mathml"
-] as const
+    "mathml",
+] as const;
 
 // Default value for ElementPatchMode
 export const DefaultElementPatchMode = "outer";

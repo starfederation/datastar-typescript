@@ -174,7 +174,11 @@ export abstract class ServerSentEventGenerator<T = string[]> {
 
     // Validate namespace if provided
     const namespace = (renderOptions as Record<string, unknown>)[DatastarDatalineNamespace] as string | undefined;
-    if (namespace) {
+    const hasNamespace = DatastarDatalineNamespace in (renderOptions as Record<string, unknown>);
+    if (hasNamespace) {
+      if (typeof namespace !== "string" || namespace.trim() === "") {
+        throw new Error("Namespace, if provided, must be a non-empty string");
+      }
       this.validateNamespace(namespace);
     }
 
