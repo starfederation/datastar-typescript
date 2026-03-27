@@ -140,7 +140,7 @@ export class ServerSentEventGenerator extends AbstractSSEGenerator {
     | { success: false; error: string }
   > {
     try {
-      if (request.method === "GET") {
+      if (["GET", "DELETE"].includes(request.method)) {
         const url = new URL(request.url);
         const params = url.searchParams;
         if (params.has("datastar")) {

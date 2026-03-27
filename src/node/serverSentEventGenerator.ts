@@ -114,7 +114,7 @@ export class ServerSentEventGenerator extends AbstractSSEGenerator {
     | { success: true; signals: Record<string, Jsonifiable> }
     | { success: false; error: string }
   > {
-    if (request.method === "GET") {
+    if (["GET", "DELETE"].includes(request.method)) {
       const url = new URL(
         `http://${process.env.HOST ?? "localhost"}${request.url}`,
       );
