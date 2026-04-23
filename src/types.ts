@@ -8,6 +8,7 @@ import {
   DatastarDatalineUseViewTransition,
   DefaultElementPatchMode,
   DefaultElementsUseViewTransitions,
+  DefaultNamespace,
   DefaultPatchSignalsOnlyIfMissing,
   EventTypes,
   ElementPatchModes,
@@ -88,6 +89,7 @@ export type DatastarEvent =
 
 export const DefaultMapping = {
   [DatastarDatalinePatchMode]: DefaultElementPatchMode,
+  [DatastarDatalineNamespace]: DefaultNamespace,
   [DatastarDatalineUseViewTransition]: DefaultElementsUseViewTransitions,
   [DatastarDatalineOnlyIfMissing]: DefaultPatchSignalsOnlyIfMissing,
 } as const;

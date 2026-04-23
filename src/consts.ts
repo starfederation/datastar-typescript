@@ -40,12 +40,16 @@ export const ElementPatchModes = [
 ] as const;
 
 export const NamespaceTypes = [
+    "html",
     "svg",
     "mathml",
 ] as const;
 
 // Default value for ElementPatchMode
 export const DefaultElementPatchMode = "outer";
+
+// Default value for Namespace
+export const DefaultNamespace = "html";
 
 // The type protocol on top of SSE which allows for core pushed based communication between the server and the client.
 export const EventTypes = [
