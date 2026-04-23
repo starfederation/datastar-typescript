@@ -13,6 +13,7 @@ export const DefaultPatchSignalsOnlyIfMissing = false;
 export const DatastarDatalineSelector = "selector"
 export const DatastarDatalinePatchMode = "mode"
 export const DatastarDatalineElements = "elements"
+export const DatastarDatalineNamespace = "namespace"
 export const DatastarDatalineUseViewTransition = "useViewTransition"
 export const DatastarDatalineSignals = "signals"
 export const DatastarDatalineOnlyIfMissing = "onlyIfMissing"
@@ -36,6 +37,11 @@ export const ElementPatchModes = [
     "after",
     // Remove target element from DOM
     "remove",
+] as const;
+
+export const NamespaceTypes = [
+    "svg",
+    "mathml",
 ] as const;
 
 // Default value for ElementPatchMode

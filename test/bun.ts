@@ -75,11 +75,12 @@ function testEvents(stream, events) {
     const { type, ...e } = event;
     switch (type) {
       case "patchElements": {
-        const { elements, mode, selector, useViewTransition, ...options } = e;
+        const { elements, mode, selector, useViewTransition, namespace, ...options } = e;
         const patchOptions = { ...options };
         if (mode && mode !== "outer") patchOptions.mode = mode;
         if (selector) patchOptions.selector = selector;
         if (useViewTransition !== undefined) patchOptions.useViewTransition = useViewTransition;
+        if (namespace) patchOptions.namespace = namespace;
         stream.patchElements(elements || "", patchOptions);
         break;
       }

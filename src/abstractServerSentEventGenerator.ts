@@ -6,15 +6,18 @@ import {
   PatchSignalsOptions,
   Jsonifiable,
   ElementPatchMode,
+  NamespaceType,
 } from "./types.ts";
 
 import {
   DatastarDatalineElements,
   DatastarDatalinePatchMode,
+  DatastarDatalineNamespace,
   DatastarDatalineSelector,
   DatastarDatalineSignals,
   DefaultSseRetryDurationMs,
   ElementPatchModes,
+  NamespaceTypes,
 } from "./consts.ts";
 
 /**
@@ -38,6 +41,16 @@ export abstract class ServerSentEventGenerator<T = string[]> {
     }
   }
 
+  /**
+   * Validates that the provided namespace is a valid NamespaceType.
+   * @param namespace - The namespace to validate
+   * @throws {Error} If the namespace is invalid
+   */
+  private validateNamespace(namespace: string): asserts namespace is NamespaceType {
+    if (!NamespaceTypes.includes(namespace as NamespaceType)) {
+      throw new Error(`Invalid namespace: "${namespace}". Valid namespaces are: ${NamespaceTypes.join(', ')}`);
+    }
+  }
 
   /**
    * Validates required parameters are not empty or undefined.
@@ -143,7 +156,7 @@ export abstract class ServerSentEventGenerator<T = string[]> {
    * ```
    *
    * @param elements - HTML string of elements to patch (must have IDs unless using selector).
-   * @param options - Patch options: selector, mode, useViewTransition, eventId, retryDuration.
+   * @param options - Patch options: selector, mode, namespace, useViewTransition, eventId, retryDuration.
    * @returns The SSE lines to send.
    */
   public patchElements(
@@ -157,6 +170,16 @@ export abstract class ServerSentEventGenerator<T = string[]> {
     const patchMode = (renderOptions as Record<string, unknown>)[DatastarDatalinePatchMode] as string;
     if (patchMode) {
       this.validateElementPatchMode(patchMode);
+    }
+
+    // Validate namespace if provided
+    const namespace = (renderOptions as Record<string, unknown>)[DatastarDatalineNamespace] as string | undefined;
+    const hasNamespace = DatastarDatalineNamespace in (renderOptions as Record<string, unknown>);
+    if (hasNamespace) {
+      if (typeof namespace !== "string" || namespace.trim() === "") {
+        throw new Error("Namespace, if provided, must be a non-empty string");
+      }
+      this.validateNamespace(namespace);
     }
 
     // Check if we're in remove mode with a selector

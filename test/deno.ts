@@ -1,9 +1,8 @@
-import { serve } from "https://deno.land/std@0.140.0/http/server.ts";
 import { ServerSentEventGenerator } from "../npm/esm/web/serverSentEventGenerator.js";
 import type { Jsonifiable } from "../src/types.ts";
 
 // This server is used for testing the web standard based sdk
-serve(async (req: Request) => {
+Deno.serve(async (req: Request) => {
   const url = new URL(req.url);
 
   if (url.pathname === "/") {
@@ -77,11 +76,12 @@ function testEvents(
     const { type, ...e } = event;
     switch (type) {
       case "patchElements": {
-        const { elements, mode, selector, useViewTransition, ...options } = e;
+        const { elements, mode, selector, useViewTransition, namespace, ...options } = e;
         const patchOptions: Record<string, unknown> = { ...options };
         if (mode && mode !== "outer") patchOptions.mode = mode;
         if (selector) patchOptions.selector = selector;
         if (useViewTransition !== undefined) patchOptions.useViewTransition = useViewTransition;
+        if (namespace) patchOptions.namespace = namespace;
         stream.patchElements((elements as string) || "", patchOptions);
         break;
       }
